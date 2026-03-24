@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package com.greengrub.image;   // Recommended: use your company + service + version
+
+option java_multiple_files = true;
+option java_package = "com.greengrub.proto.image";
+option java_outer_classname = "ImageServiceProto";
+
+// ========================================
+// ENUMS
+// ========================================
+enum CreatorType {
+    CUSTOMER = 0;
+    FOOD_REQUEST = 1;
+}
+
+// ========================================
+// MESSAGES
+// ========================================
+
+// Request to upload one or more images (batch upload)
+message UploadImagesRequest {
+  string creator_id = 1;                    // Common creator for all images in this batch
+  CreatorType creator_type = 2;
+  repeated bytes image_data = 3;            // List of raw image bytes (one per image)
+}
+
+// Response after successful upload
+message UploadImagesResponse {
+  string message = 1;
+}
+
+// Request to fetch all images belonging to a creator (customerId)
+message GetImagesByCreatorRequest {
+  string creator_id = 1;                    // This is the shared customerId / foodRequestId
+}
+
+// Response returning list of images
+message GetImagesByCreatorResponse {
+  repeated bytes images = 1;                // List of raw image bytes (one per image)
+}
+
+// ========================================
+// SERVICE DEFINITION
+// ========================================
+service ImageService {
+
+  // Batch upload multiple photos at once
+  rpc UploadImages(UploadImagesRequest) returns (UploadImagesResponse);
+
+  // Get all photos for a given creator (customerId)
+  rpc GetImagesByCreator(GetImagesByCreatorRequest) returns (GetImagesByCreatorResponse);
+}
