@@ -22,8 +22,8 @@ If you manually switch to a different parent and actually want the inheritance, 
 
 ### For this project we are using a Project-Level setting.xml file 
 
-To Deploy the changes run below three commands : 
-GITHUB_USERNAME=yourgithubusername \
-GITHUB_TOKEN=ghp_YourTokenHere \
+To Deploy the changes run below three commands :
+export GITHUB_USERNAME=your_username \
+export GITHUB_TOKEN=your_token \
 mvn clean deploy -s settings.xml
 
