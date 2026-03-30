@@ -22,6 +22,17 @@ If you manually switch to a different parent and actually want the inheritance, 
 
 ### For this project we are using a Project-Level setting.xml file 
 
+Add a setting.xml file at project level (where you have your pom file)
+content:
+
+    <servers>
+        <server>
+            <id>github</id>
+            <username>${env.GITHUB_USERNAME}</username>
+            <password>${env.GITHUB_TOKEN}</password>
+        </server>
+    </servers>
+
 To Deploy the changes run below three commands :
 export GITHUB_USERNAME=your_username \
 export GITHUB_TOKEN=your_token \
