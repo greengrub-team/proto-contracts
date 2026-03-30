@@ -17,7 +17,14 @@ enum CreatorType {
 // ========================================
 // MESSAGES
 // ========================================
-
+// Single image metadata (used in both request and response)
+message Image {
+  string image_id = 1;
+  string creator_id = 2;
+  CreatorType creator_type = 3;
+  string image_url = 4;
+  string created_date = 5;
+}
 // Request to upload one or more images (batch upload)
 message UploadImagesRequest {
   string creator_id = 1;                    // Common creator for all images in this batch
@@ -37,7 +44,7 @@ message GetImagesByCreatorRequest {
 
 // Response returning list of images
 message GetImagesByCreatorResponse {
-  repeated bytes images = 1;                // List of raw image bytes (one per image)
+  repeated Image images = 1;                // List of raw image
 }
 
 // ========================================
