@@ -19,6 +19,8 @@ While most of the inheritance is fine, it also inherits unwanted elements like `
 To prevent this, the project POM contains empty overrides for these elements.
 If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
 
+![img.png](img.png)
+
 
 ### For this project we are using a Project-Level setting.xml file 
 

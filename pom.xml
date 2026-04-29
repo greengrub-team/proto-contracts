@@ -42,6 +42,13 @@
             <artifactId>grpc-api</artifactId>
             <version>${grpc.version}</version>
         </dependency>
+        <!-- Source: https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded -->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>${grpc.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- Fix for @javax.annotation.Generated -->
         <dependency>
@@ -134,7 +141,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/SubhadipJ/proto-contracts</url>
+            <url>https://maven.pkg.github.com/greengrub-team/proto-contracts</url>
         </repository>
     </distributionManagement>
 
