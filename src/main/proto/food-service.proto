@@ -15,6 +15,11 @@ enum Unit {
   SERVINGS = 2;
 }
 
+enum CreatorType {
+  CUSTOMER = 0;
+  FOOD_REQUEST = 1;
+}
+
 // ========================================
 // MESSAGES
 // ========================================
@@ -28,6 +33,9 @@ message Image {
   string id = 1;           // UUID as string
   string creator_id = 2;   // UUID as string
   string url = 3;          // GCP Storage URL
+  optional string file_name = 4; // for local Image
+  optional string content_type = 5; // for local Image
+  optional bytes image_data = 6; // for local Images
 }
 
 message Food {

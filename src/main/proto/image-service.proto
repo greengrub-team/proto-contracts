@@ -9,6 +9,7 @@ option java_outer_classname = "ImageServiceProto";
 // ========================================
 // ENUMS
 // ========================================
+
 enum CreatorType {
     CUSTOMER = 0;
     FOOD_REQUEST = 1;
@@ -17,7 +18,7 @@ enum CreatorType {
 // ========================================
 // MESSAGES
 // ========================================
-// Single image metadata (used in both request and response)
+
 message Image {
   string image_id = 1;
   string creator_id = 2;
@@ -25,36 +26,74 @@ message Image {
   string image_url = 4;
   string created_date = 5;
 }
-// Request to upload one or more images (batch upload)
+
+message LocalImage {
+  string image_id = 1;
+  string creator_id = 2;
+  CreatorType creator_type = 3;
+  string file_name = 4;
+  string content_type =5;
+  bytes image_data = 6;
+  string created_date = 7;
+}
+
+// ========================================
+// REQUEST MESSAGES
+// ========================================
+
 message UploadImagesRequest {
   string creator_id = 1;                    // Common creator for all images in this batch
   CreatorType creator_type = 2;
   repeated bytes image_data = 3;            // List of raw image bytes (one per image)
 }
 
-// Response after successful upload
-message UploadImagesResponse {
-  string message = 1;
-}
-
-// Request to fetch all images belonging to a creator (customerId)
 message GetImagesByCreatorRequest {
   string creator_id = 1;                    // This is the shared customerId / foodRequestId
 }
 
-// Response returning list of images
+message DeleteImageByImageIdRequest {
+  string image_id = 1;
+}
+
+message UploadLocalImageRequest {
+  string file_name = 1;
+  string content_type = 2;
+  repeated bytes image_data = 3;
+  string creator_id = 4;                    // Common creator for all images in this batch
+  CreatorType creator_type = 5;
+}
+
+// ============================================================
+//  RESPONSE MESSAGES
+// ============================================================
+
+message DeleteImageByImageIdResponse {
+  string message = 1;
+}
+
+message UploadImagesResponse {
+  string message = 1;
+}
+
 message GetImagesByCreatorResponse {
   repeated Image images = 1;                // List of raw image
+}
+
+message UploadLocalImageResponse {
+  repeated LocalImage images = 1;  // List of raw image
 }
 
 // ========================================
 // SERVICE DEFINITION
 // ========================================
 service ImageService {
+  rpc UploadImages(UploadImagesRequest) returns (UploadImagesResponse);  // Batch upload multiple photos at once
+  rpc GetImagesByCreator(GetImagesByCreatorRequest) returns (GetImagesByCreatorResponse);  // Get all photos for a given creator (customerId)
+  rpc DeleteImagesByImageId(DeleteImageByImageIdRequest) returns (DeleteImageByImageIdResponse); // Delete Image by Image Id
+  rpc GetImageByImageId(DeleteImageByImageIdRequest) returns (GetImagesByCreatorResponse); // Get Image By ImageId
 
-  // Batch upload multiple photos at once
-  rpc UploadImages(UploadImagesRequest) returns (UploadImagesResponse);
-
-  // Get all photos for a given creator (customerId)
-  rpc GetImagesByCreator(GetImagesByCreatorRequest) returns (GetImagesByCreatorResponse);
+  //For Local Storage
+  rpc UploadLocalImages(UploadLocalImageRequest) returns(UploadLocalImageResponse);
+  rpc GetLocalImagesByCreator(GetImagesByCreatorRequest) returns (UploadLocalImageResponse);
+  rpc GetLocalImageByImageId(DeleteImageByImageIdRequest) returns (UploadLocalImageResponse);
 }
