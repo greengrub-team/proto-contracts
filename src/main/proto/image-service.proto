@@ -23,18 +23,11 @@ message Image {
   string image_id = 1;
   string creator_id = 2;
   CreatorType creator_type = 3;
-  string image_url = 4;
+  optional string image_url = 4;
   string created_date = 5;
-}
-
-message LocalImage {
-  string image_id = 1;
-  string creator_id = 2;
-  CreatorType creator_type = 3;
-  string file_name = 4;
-  string content_type =5;
-  bytes image_data = 6;
-  string created_date = 7;
+  string file_name = 6;
+  optional string content_type =7;
+  optional bytes image_data = 8;
 }
 
 // ========================================
