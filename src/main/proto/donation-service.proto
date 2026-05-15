@@ -12,13 +12,13 @@ option java_outer_classname = "DonationServiceProto";
 
 service DonationService {
   rpc CreateDonation        (CreateDonationRequest)      returns (DonationResponse);
-  rpc GetAllDonations       (DonationListRequest)                      returns (DonationListResponse);
+  rpc GetAllDonations       (DonationListRequest)        returns (DonationListResponse);
   rpc GetDonationById       (DonationByIdRequest)        returns (DonationResponse);
   rpc GetDonationsByUserId  (DonationByUserIdRequest)    returns (DonationListResponse);
   rpc UpdateDonation        (UpdateDonationRequest)      returns (DonationResponse);
   rpc DeleteDonation        (DonationByIdRequest)        returns (DeleteDonationResponse);
   rpc GetFoodItemsByDonationId (FoodListRequest)         returns (FoodListResponse);
-  rpc GetUsersByDonationId (DonationByIdRequest) returns (ListUsersResponse);  //List
+  rpc GetUsersByDonationId (DonationByIdRequest)         returns (ListUsersResponse);  //List
 }
 
 // ============================================================
@@ -134,7 +134,6 @@ message DonationListResponse {
   int32 total_count = 2;
   int32 page = 3;
   int32 page_size = 4;
-
 }
 
 message FoodListResponse {

@@ -72,7 +72,8 @@ message DeleteImageByImageIdResponse {
 }
 
 message UploadImagesResponse {
-  string message = 1;
+  repeated string message = 1;
+  string total_image_count = 2;
 }
 
 message GetImagesByCreatorResponse {
@@ -80,7 +81,12 @@ message GetImagesByCreatorResponse {
 }
 
 message UploadLocalImageResponse {
-  repeated LocalImage images = 1;  // List of raw image
+  repeated string message = 1;
+  string total_image_count = 2;
+}
+
+message GetLocalImagesByCreatorResponse {
+  repeated Image images = 1;                // List of raw image
 }
 
 // ========================================
@@ -88,12 +94,12 @@ message UploadLocalImageResponse {
 // ========================================
 service ImageService {
   rpc UploadImages(UploadImagesRequest) returns (UploadImagesResponse);  // Batch upload multiple photos at once
-  rpc GetImagesByCreator(GetImagesByCreatorRequest) returns (GetImagesByCreatorResponse);  // Get all photos for a given creator (customerId)
+  rpc GetImagesByCreator(GetImagesByCreatorRequest) returns (stream GetImagesByCreatorResponse);  // Get all photos for a given creator (customerId)
   rpc DeleteImagesByImageId(DeleteImageByImageIdRequest) returns (DeleteImageByImageIdResponse); // Delete Image by Image Id
-  rpc GetImageByImageId(DeleteImageByImageIdRequest) returns (GetImagesByCreatorResponse); // Get Image By ImageId
+  rpc GetImageByImageId(DeleteImageByImageIdRequest) returns (stream GetImagesByCreatorResponse); // Get Image By ImageId
 
   //For Local Storage
   rpc UploadLocalImages(UploadLocalImageRequest) returns(UploadLocalImageResponse);
-  rpc GetLocalImagesByCreator(GetImagesByCreatorRequest) returns (UploadLocalImageResponse);
-  rpc GetLocalImageByImageId(DeleteImageByImageIdRequest) returns (UploadLocalImageResponse);
+  rpc GetLocalImagesByCreator(GetImagesByCreatorRequest) returns (stream GetLocalImagesByCreatorResponse);
+  rpc GetLocalImageByImageId(DeleteImageByImageIdRequest) returns (stream GetLocalImagesByCreatorResponse);
 }
